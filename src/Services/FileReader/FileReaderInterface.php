@@ -11,13 +11,14 @@ interface FileReaderInterface
     /**
      * read Open file to read
      * @param  string $filePath String with path to file
+     * @throws Exception Throw Exception when file with emails is not readable
      * @return void
      */
     public function read(string $filePath): void;
 
     /**
      * parseToArray Parse data from file to array
-     * @return Array
+     * @return Array Return array with data from file
      */
     public function parseToArray(): Array;
 

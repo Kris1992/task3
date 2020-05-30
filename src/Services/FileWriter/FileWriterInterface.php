@@ -11,6 +11,7 @@ interface FileWriterInterface
     /**
      * openFile Open file to write into
      * @param  string $filePath String with path to file
+     * @throws Exception Throw Exception when file to save is not writable
      * @return void
      */
     public function openFile(string $filePath): void;

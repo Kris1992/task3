@@ -6,8 +6,16 @@ namespace App\Services\EmailValidator;
 class EmailValidator implements EmailValidatorInterface
 {
 
+    /**
+     * Array with valid emails
+     * @var Array
+     */
     private $validArray = [];
 
+    /**
+     * Array with invalid emails
+     * @var Array
+     */
     private $invalidArray = [];
 
     public function validate(?string $email, bool $mode): void
@@ -48,14 +56,20 @@ class EmailValidator implements EmailValidatorInterface
 
     private function basicValidator(?string $email): bool
     {
-       if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-           return true; 
-       }
+
+        $emailSanitazed = filter_var($email, FILTER_SANITIZE_EMAIL);
+        if ($emailSanitazed !== $email) {
+            return false;
+        }
+
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return true; 
+        }
        
        return false;
     }
 
-    private function dnsValidator(?string $email): bool
+    private function dnsValidator(string $email): bool
     {   
         $emailParts = explode("@", $email);
         return checkdnsrr($emailParts[1], 'MX');

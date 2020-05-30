@@ -8,6 +8,9 @@ use App\Services\FileWriter\FileWriterInterface;
 class ReportsGenerator implements ReportsGeneratorInterface
 {   
     
+    /**
+     * @var FileWriterInterface
+     */
     private $fileWriter;
 
     public function __construct(FileWriterInterface $fileWriter)

@@ -11,5 +11,4 @@ To run command in high precision mode (with additional validators):<br />
 
 ```
 php bin/console app:csv:validate [filename with extension] --highPrecision=true
-
 ```

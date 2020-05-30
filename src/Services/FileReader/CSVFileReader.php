@@ -21,10 +21,14 @@ class CSVFileReader implements FileReaderInterface
     public function read(string $filePath): void
     {
         $this->file = fopen($filePath, "r");
+        if (!$this->file) {
+            throw new \Exception("Cannot read this file.");
+        }
     }
 
     public function parseToArray(): Array
     {   
+
         $emailsArray = Array();
         while (($emailRow = fgetcsv($this->file, self::MAX_LINE_LENGTH, "\n")) !== FALSE) {
             array_push($emailsArray, $emailRow[0]);

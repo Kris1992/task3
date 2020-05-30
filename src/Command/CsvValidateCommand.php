@@ -77,11 +77,17 @@ class CsvValidateCommand extends Command
             $io->note('High precision is set to off!!');
         }
 
-        $status = $this->emailSegregationSystem->segregate($filePath, $highPrecision);
+        try {
+            $status = $this->emailSegregationSystem->segregate($filePath, $highPrecision);
+        } catch (\Exception $e) {
+            $io->error($e->getMessage());
+            return 0;
+        }
+        
 
         $io->note(sprintf('Valid emails: %d', $status['valid']));
         $io->note(sprintf('Invalid emails: %d', $status['invalid']));
-        $io->success('Reports generated successfull.');
+        $io->success('Reports generated successful.');
 
         return 0;
     }

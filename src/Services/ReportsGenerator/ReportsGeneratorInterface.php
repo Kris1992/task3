@@ -13,6 +13,7 @@ interface ReportsGeneratorInterface
      * @param  string $folderPath String with path to folder to save files
      * @param  Array  $invalid    Array with invalid emails
      * @param  Array  $valid      Array with valid emails
+     * @throws Exception          Throw Exception when file to save is not writable
      * @return void
      */
     public function generate(string $folderPath, Array $invalid, Array $valid): void;

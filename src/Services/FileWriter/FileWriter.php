@@ -8,11 +8,19 @@ class FileWriter implements FileWriterInterface
 
     private $file;
 
+    /**
+     * Absolute file path
+     * @var string
+     */
     private $filePath;
 
     public function openFile(string $filePath): void
     {
         $this->file = fopen($filePath, "w");
+        if (!$this->file) {
+            throw new Exception(sprintf('Cannot write to this file: %s.', $filePath));
+        }
+        
         $this->filePath = $filePath;
     }
 
