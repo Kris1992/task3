@@ -12,8 +12,8 @@ interface CSVFileValidatorInterface
 {   
     /**
      * validate Validate CSV file 
-     * @param  string $filePath Path to file
-     * @throws Exception Throw Exception when file doesn't exist or is invalid
+     * @param  string $filePath Absolute path to file
+     * @throws Exception Throw Exception when file doesn't exist
      * @return bool Return true if is valid otherwise false
      */
     public function validate(string $filePath): bool;

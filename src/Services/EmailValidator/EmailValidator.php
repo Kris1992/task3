@@ -30,7 +30,6 @@ class EmailValidator implements EmailValidatorInterface
         return $this->validArray;
     }
 
-
     private function isValid(?string $email, bool $mode): bool
     {   
         if ($mode) {
@@ -64,8 +63,7 @@ class EmailValidator implements EmailValidatorInterface
 
     private function regexValidator(?string $email): bool
     {
-        //sprawdzić czy są dwie kropki w domenie
-        //sprawdzić czy końcowka ma 2 litery
+        
 
        //$emailParts = explode("@", $email);
        

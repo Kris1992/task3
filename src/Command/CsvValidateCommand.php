@@ -14,11 +14,20 @@ class CsvValidateCommand extends Command
 {
     protected static $defaultName = 'app:csv:validate';
 
-    /* Path to public directory */
+    /**
+     * Path to public directory
+     * @var string  
+     */
     private $csvDirectory;
 
+    /**
+     * @var CSVFileValidatorInterface  
+     */
     private $CSVFileValidator;
 
+    /**
+     * @var EmailSegregationSystemInterface  
+     */
     private $emailSegregationSystem;
 
     public function __construct(CSVFileValidatorInterface $CSVFileValidator, EmailSegregationSystemInterface $emailSegregationSystem, string $csvDirectory)
@@ -34,7 +43,7 @@ class CsvValidateCommand extends Command
         $this
             ->setDescription('Validate csv file from public dir given by name ')
             ->addArgument('csvName', InputArgument::REQUIRED, 'Name of csv file')
-            ->addOption('highPrecision', null, InputOption::VALUE_OPTIONAL, 'High precision mode (default = TRUE) [optional]')
+            ->addOption('highPrecision', null, InputOption::VALUE_OPTIONAL, 'High precision mode (default = FALSE) [optional]')
         ;
     }
 
@@ -50,14 +59,13 @@ class CsvValidateCommand extends Command
         $filePath = sprintf('%s/%s', $this->csvDirectory, $csvName);
 
         try {
-            $isValid = $this->CSVFileValidator->validate($filePath);
+
+            if (!$this->CSVFileValidator->validate($filePath)) {
+                throw new \Exception('Given file is not valid csv file.');       
+            }
+
         } catch (\Exception $e) {
             $io->error($e->getMessage());
-            return 0;
-        }
-        
-        if (!$isValid) {
-            $io->error('Given file is not valid csv file');
             return 0;
         }
 
@@ -65,6 +73,8 @@ class CsvValidateCommand extends Command
 
         if ($highPrecision) {
             $io->note('High precision is on, so it can take some time.');
+        } else {
+            $io->note('High precision is set to off!!');
         }
 
         $status = $this->emailSegregationSystem->segregate($filePath, $highPrecision);
@@ -75,4 +85,5 @@ class CsvValidateCommand extends Command
 
         return 0;
     }
+
 }

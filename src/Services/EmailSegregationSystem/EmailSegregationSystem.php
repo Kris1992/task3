@@ -10,9 +10,25 @@ use App\Services\ReportsGenerator\ReportsGeneratorInterface;
 class EmailSegregationSystem implements EmailSegregationSystemInterface
 {   
     
+    /**
+     * @var FileReaderInterface  
+     */
     private $CSVfileReader;
+
+    /**
+     * @var EmailValidatorInterface  
+     */
     private $emailValidator;
+
+    /**
+     * @var ReportsGeneratorInterface  
+     */
     private $reportsGenerator;
+
+    /**
+     * Path to public directory
+     * @var string
+     */
     private $csvDirectory;
 
     /**

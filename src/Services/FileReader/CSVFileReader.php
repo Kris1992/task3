@@ -26,7 +26,7 @@ class CSVFileReader implements FileReaderInterface
     public function parseToArray(): Array
     {   
         $emailsArray = Array();
-        while (($emailRow = fgetcsv($this->file, self::MAX_LINE_LENGTH, ",")) !== FALSE) {
+        while (($emailRow = fgetcsv($this->file, self::MAX_LINE_LENGTH, "\n")) !== FALSE) {
             array_push($emailsArray, $emailRow[0]);
         }
         
