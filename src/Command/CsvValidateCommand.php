@@ -34,6 +34,7 @@ class CsvValidateCommand extends Command
         $this
             ->setDescription('Validate csv file from public dir given by name ')
             ->addArgument('csvName', InputArgument::REQUIRED, 'Name of csv file')
+            ->addOption('highPrecision', null, InputOption::VALUE_OPTIONAL, 'High precision mode (default = TRUE) [optional]')
         ;
     }
 
@@ -60,11 +61,17 @@ class CsvValidateCommand extends Command
             return 0;
         }
 
-        $status = $this->emailSegregationSystem->segregate($filePath);
+        $highPrecision = filter_var($input->getOption('highPrecision'), FILTER_VALIDATE_BOOLEAN) ?? true;
+
+        if ($highPrecision) {
+            $io->note('High precision is on, so it can take some time.');
+        }
+
+        $status = $this->emailSegregationSystem->segregate($filePath, $highPrecision);
 
         $io->note(sprintf('Valid emails: %d', $status['valid']));
         $io->note(sprintf('Invalid emails: %d', $status['invalid']));
-        $io->success('Reports generated successfull');
+        $io->success('Reports generated successfull.');
 
         return 0;
     }

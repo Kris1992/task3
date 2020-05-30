@@ -1,5 +1,4 @@
-Array
-(
-    [Number of valid emails] => 420
-    [Number of invalid emails] => 1126
-)
+Number of valid emails:
+420
+Number of invalid emails:
+1126

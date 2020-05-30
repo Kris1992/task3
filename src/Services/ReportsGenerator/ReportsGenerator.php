@@ -25,8 +25,10 @@ class ReportsGenerator implements ReportsGeneratorInterface
         $this->fileWriter->write($valid);
 
         $report = [
-            'Number of valid emails' => count($valid),
-            'Number of invalid emails' => count($invalid)
+            'Number of valid emails:',
+            count($valid),
+            'Number of invalid emails:',
+            count($invalid)
         ];
 
         $this->fileWriter->openFile(sprintf('%s/%s', $folderPath, 'report.txt'));

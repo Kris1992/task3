@@ -18,7 +18,8 @@ class FileWriter implements FileWriterInterface
 
     public function write(Array $data): void
     {   
-        if (!fwrite($this->file, print_r($data, TRUE))) {
+    
+        if (!fwrite($this->file, implode("\n", $data))) {
             fclose($this->file);
             throw new \Exception(sprintf('Cannot write data to file: %s', $this->filePath));
         }

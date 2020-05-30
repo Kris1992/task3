@@ -10,9 +10,9 @@ class EmailValidator implements EmailValidatorInterface
 
     private $invalidArray = [];
 
-    public function validate(?string $email): void
+    public function validate(?string $email, bool $mode): void
     {
-        if ($this->basicValidator($email) && $this->regexValidator($email)) {
+        if ($this->isValid($email, $mode)) {
             array_push($this->validArray, $email);
         } else {
             array_push($this->invalidArray, $email);
@@ -30,6 +30,23 @@ class EmailValidator implements EmailValidatorInterface
         return $this->validArray;
     }
 
+
+    private function isValid(?string $email, bool $mode): bool
+    {   
+        if ($mode) {
+           $isValid = $this->basicValidator($email);
+           
+           if ($isValid) {
+               $isValid = $this->dnsValidator($email);
+           }
+
+        } else {
+            $isValid = $this->basicValidator($email);
+        }
+
+        return $isValid;
+    }
+
     private function basicValidator(?string $email): bool
     {
        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -37,6 +54,12 @@ class EmailValidator implements EmailValidatorInterface
        }
        
        return false;
+    }
+
+    private function dnsValidator(?string $email): bool
+    {   
+        $emailParts = explode("@", $email);
+        return checkdnsrr($emailParts[1], 'MX');
     }
 
     private function regexValidator(?string $email): bool

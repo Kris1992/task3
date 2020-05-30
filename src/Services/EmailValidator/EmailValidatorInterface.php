@@ -9,7 +9,7 @@ namespace App\Services\EmailValidator;
 interface EmailValidatorInterface
 {   
 
-    public function validate(?string $email): void;
+    public function validate(?string $email, bool $mode): void;
 
     public function getValid(): Array;
 

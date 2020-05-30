@@ -12,8 +12,9 @@ interface EmailSegregationSystemInterface
     /**
      * segregate Take care about all proccess of segregate emails and writing reports
      * @param  string $filePath Path to file with emails to segregate
+     * @param  bool $mode High precision on or off
      * @return Array            Array with numbers of invalid and valid emails
      */
-    public function segregate(string $filePath): Array;
+    public function segregate(string $filePath, bool $mode): Array;
 
 }

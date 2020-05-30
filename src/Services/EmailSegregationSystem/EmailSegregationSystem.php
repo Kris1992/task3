@@ -29,13 +29,13 @@ class EmailSegregationSystem implements EmailSegregationSystemInterface
         $this->csvDirectory = $csvDirectory;
     }
 
-    public function segregate(string $filePath): Array
+    public function segregate(string $filePath, bool $mode): Array
     {
         $this->CSVfileReader->read($filePath);
         $emailsArray = $this->CSVfileReader->parseToArray();
         
         foreach ($emailsArray as $email) {
-            $this->emailValidator->validate($email);
+            $this->emailValidator->validate($email, $mode);
         }
 
         $valid = $this->emailValidator->getValid();
