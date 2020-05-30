@@ -75,21 +75,4 @@ class EmailValidator implements EmailValidatorInterface
         return checkdnsrr($emailParts[1], 'MX');
     }
 
-    private function regexValidator(?string $email): bool
-    {
-        
-
-       //$emailParts = explode("@", $email);
-       
-       // preg_match()
-
-       //var_dump($emailParts[1]);
-
-       if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-           return true; 
-       }
-       
-       return false;
-    }
-
 }

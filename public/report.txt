@@ -1,4 +1,4 @@
 Number of valid emails:
-420
+341
 Number of invalid emails:
-1126
+1205
